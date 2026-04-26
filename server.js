@@ -8,7 +8,7 @@ app.use(express.json());
 // Custom CORS Middleware to explain the logic
 app.use((req, res, next) => {
     // Allow the specific origin of your frontend (usually port 5173 for Vite)
-    res.header("Access-Control-Allow-Origin", "http://localhost:5173");
+    res.header("Access-Control-Allow-Origin", "http://127.0.0.1:5500");
     
     // Specify which methods and headers are allowed for cross-origin requests
     res.header("Access-Control-Allow-Methods", "GET, PUT, POST, DELETE, OPTIONS");
@@ -25,11 +25,13 @@ app.use((req, res, next) => {
 // Route for Simple Request
 app.get('/api/product', (req, res) => {
     res.json({ name: "Simple Product", status: "Success" });
+    
 });
 
 // Route for Preflighted Request
 app.put('/api/resource', (req, res) => {
     res.json({ message: "Resource updated successfully" });
+    
 });
 
 app.listen(port, () => {

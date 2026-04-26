@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CORS Demo</title>
+</head>
+<body>
+    <h1>Simple Request</h1>
+    <button onclick="fetchProduct()">Fetch Product (Simple Request)</button>
+
+    <h1>Preflighted Request</h1>
+    <button onclick="updateResource()">Update Resource (Preflighted Request)</button>
+    <p id="status-message" style="color: green;"></p>
+
+    <script>
+        // A Simple Request (GET, no custom headers)
+        async function fetchProduct() {
+            try {
+                const response = await fetch('http://localhost:3001/api/product');
+                const data = await response.json();
+                console.log("Simple Request Result:", data);
+            } catch (err) {
+                console.error("Simple Request Failed:", err);
+            }
+        }
+
+        // A Preflighted Request (PUT + JSON + Authorization header)
+        async function updateResource() {
+            try {
+                const response = await fetch('http://localhost:3001/api/resource', {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': 'Bearer token123'
+                    },
+                    body: JSON.stringify({ name: "John Doe" })
+                });
+                const data = await response.json();
+                document.getElementById('status-message').innerText = data.message;
+            } catch (err) {
+                console.error("Preflighted Request Failed:", err);
+            }
+        }
+    </script>
+</body>
+</html>
